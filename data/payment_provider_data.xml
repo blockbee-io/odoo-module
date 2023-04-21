@@ -1,0 +1,11 @@
+<odoo>
+
+    <record id="payment_provider_blockbee" model="payment.provider">
+        <field name="name">BlockBee Payment Gateway</field>
+        <field name="code">blockbee</field>
+        <field name="image_128" type="base64" file="payment_blockbee/static/description/icon.png"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="redirect_form_view_id" ref="redirect_form"/>
+    </record>
+
+</odoo>

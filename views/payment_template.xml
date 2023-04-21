@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="payment_provider_form" model="ir.ui.view">
+        <field name="name">BlockBee Provider Form</field>
+        <field name="model">payment.provider</field>
+        <field name="inherit_id" ref="payment.payment_provider_form"/>
+        <field name="arch" type="xml">
+            <group name="provider_credentials" position='inside'>
+                <group attrs="{'invisible': [('code', '!=', 'blockbee')]}">
+                    <field name="blockbee_api_key"
+                           string="BlockBee API Key"
+                           attrs="{'required': [('code', '=', 'blockbee'), ('state', '!=', 'disabled')]}"/>
+                    <a href="https://dash.blockbee.io/"
+                       target="_blank"
+                       colspan="2">
+                        You must obtain an API Key from BlockBee Dashboard
+                    </a>
+                </group>
+            </group>
+        </field>
+    </record>
+
+</odoo>
