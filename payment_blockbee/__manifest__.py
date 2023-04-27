@@ -4,7 +4,7 @@
     'category': 'Accounting/Payment Acquirers',
     'sequence': 350,
     'author': 'BlockBee',
-    'website': 'https://blockbee.io',
+    'website': 'https://blockbee.io/',
     'depends': ['payment'],
     'data': [
         'views/payment_template.xml',
