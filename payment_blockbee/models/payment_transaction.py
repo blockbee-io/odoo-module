@@ -17,7 +17,7 @@ class PaymentTransaction(models.Model):
     _inherit = 'payment.transaction'
 
     def _get_specific_rendering_values(self, processing_values):
-        """ Override of `payment` to return Mercado Pago-specific rendering values.
+        """ Override of `payment` to return BlockBee-specific rendering values.
         Note: self.ensure_one() from `_get_rendering_values`.
         :param dict processing_values: The generic and specific processing values of the transaction
         :return: The dict of provider-specific processing values.
