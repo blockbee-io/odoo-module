@@ -1,6 +1,6 @@
 {
     'name': 'BlockBee Payment Gateway',
-    'version': '1.0.0',
+    'version': '1.1.0',
     'category': 'Accounting/Payment Acquirers',
     'sequence': 350,
     'author': 'BlockBee',

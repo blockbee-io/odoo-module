@@ -112,5 +112,8 @@ The easiest and fastest way is via our live chat on our [website](https://blockb
 #### 1.0.0
 * Initial release.
 
+#### 1.1.0
+* Supports invoices
+
 ### Upgrade Notice
 * No breaking changes.
