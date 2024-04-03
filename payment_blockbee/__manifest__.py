@@ -1,5 +1,5 @@
 {
-    'name': 'Payment Provider: BlockBee',
+    'name': 'BlockBee Payment Gateway',
     'version': '1.2.0',
     'category': 'Accounting/Payment Providers',
     'sequence': 350,
