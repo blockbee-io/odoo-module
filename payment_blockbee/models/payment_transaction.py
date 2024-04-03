@@ -33,10 +33,10 @@ class PaymentTransaction(models.Model):
 
         payload = self._blockbee_payload()
 
-        _logger.info(
-            "Sending '/checkout/preferences' request for link creation:\n%s",
-            pprint.pformat(payload),
-        )
+        # _logger.info(
+        #     "Sending '/checkout/preferences' request for link creation:\n%s",
+        #     pprint.pformat(payload),
+        # )
 
         try:
             # Request the Payment URL to BlockBee

@@ -113,7 +113,10 @@ The easiest and fastest way is via our live chat on our [website](https://blockb
 * Initial release.
 
 #### 1.1.0
-* Supports invoices
+* Supports invoices.
+
+#### 1.1.1
+* Minor bugfixes.
 
 ### Upgrade Notice
 * No breaking changes.
