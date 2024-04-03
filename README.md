@@ -6,7 +6,7 @@ Accept cryptocurrency payments in Odoo.
 ### Requirements:
 
 ```
-Odoo = 16
+Odoo = 17
 ```
 
 ### Description
@@ -109,11 +109,8 @@ The easiest and fastest way is via our live chat on our [website](https://blockb
 
 ### Changelog 
 
-#### 1.0.0
-* Initial release.
-
-#### 1.1.0
-* Supports invoices
+#### 1.2.0
+* Support Odoo 17
 
 ### Upgrade Notice
 * No breaking changes.

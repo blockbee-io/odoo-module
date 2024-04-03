@@ -1,11 +1,10 @@
-import json
 import logging
 import pprint
 from _decimal import Decimal
 
 from werkzeug import urls
 
-from odoo import _, models, api
+from odoo import _, models
 from odoo.http import request
 from odoo.exceptions import ValidationError
 
@@ -33,10 +32,10 @@ class PaymentTransaction(models.Model):
 
         payload = self._blockbee_payload()
 
-        _logger.info(
-            "Sending '/checkout/preferences' request for link creation:\n%s",
-            pprint.pformat(payload),
-        )
+        # _logger.info(
+        #     "Sending '/checkout/preferences' request for link creation:\n%s",
+        #     pprint.pformat(payload),
+        # )
 
         try:
             # Request the Payment URL to BlockBee
@@ -53,9 +52,10 @@ class PaymentTransaction(models.Model):
                 }
             )
 
-            if _request:
+            if _request and self.env:
                 api_url = _request['payment_url']
                 order_number = payload['order_number']
+
                 blockbee_order = self.env['blockbee.orders'].sudo().search([('order_number', '=', order_number)], limit=1)
 
                 # Checks if order row already exists, if not creates new
@@ -74,7 +74,9 @@ class PaymentTransaction(models.Model):
                 }
                 return rendering_values
 
-        except Exception:
+        except Exception as e:
+            _logger.exception(e)
+
             raise ValidationError(
                 "BlockBee: " + _("Failing to create a payment.")
             )
@@ -84,16 +86,6 @@ class PaymentTransaction(models.Model):
         ipn_url = urls.url_join(base_url, BlockBeeController._ipn_url)
 
         amount = self.amount
-
-        # Calculating the fee set by the customer
-        fee_amount = self.provider_id._compute_fees(
-            self.amount,
-            self.currency_id,
-            self.partner_country_id
-        )
-
-        if fee_amount is not None:
-            amount = amount + fee_amount
 
         return {
             'ipn_url': ipn_url,

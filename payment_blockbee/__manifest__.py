@@ -1,15 +1,16 @@
 {
-    'name': 'BlockBee Payment Gateway',
-    'version': '1.1.0',
-    'category': 'Accounting/Payment Acquirers',
+    'name': 'Payment Provider: BlockBee',
+    'version': '1.2.0',
+    'category': 'Accounting/Payment Providers',
     'sequence': 350,
     'author': 'BlockBee',
     'website': 'https://blockbee.io/',
     'depends': ['payment'],
     'data': [
-        'views/payment_template.xml',
         'views/payment_blockbee_templates.xml',
+        'views/payment_provider_views.xml',
 
+        'data/payment_method_data.xml',
         'data/payment_provider_data.xml',
     ],
     'images': [

@@ -1,4 +1,3 @@
-import json
 import logging
 import requests
 
@@ -6,11 +5,10 @@ from requests.models import PreparedRequest
 
 from odoo import fields, models, api
 
-_logger = logging.getLogger(__name__)
+from odoo.addons.payment_blockbee import const
 
-"""
-@todo: order is not being created for some reason
-"""
+
+_logger = logging.getLogger(__name__)
 
 
 class PaymentProvider(models.Model):
@@ -20,14 +18,30 @@ class PaymentProvider(models.Model):
         selection_add=[('blockbee', "BlockBee")],
         ondelete={'blockbee': 'set default'}
     )
-    blockbee_api_key = fields.Char(string='BlockBee API Key')
+
+    blockbee_api_key = fields.Char(
+        string='BlockBee API Key',
+        required_if_provider='blockbee',
+        groups='base.group_system',
+    )
+
+    @api.depends('code')
+    def _compute_view_configuration_fields(self):
+        """ Override of payment to hide the credentials page.
+
+        :return: None
+        """
+        super()._compute_view_configuration_fields()
+        self.filtered(lambda p: p.code == 'blockbee').show_credentials_page = True
+
+    # === COMPUTE METHODS ===#
 
     def _compute_feature_support_fields(self):
         super()._compute_feature_support_fields()
         self.filtered(lambda p: p.code == 'blockbee').update({
-            'support_fees': True,
             'support_tokenization': False,
             'support_refund': False,
+            'support_manual_capture': False,
             'support_express_checkout': False,
         })
 
@@ -36,6 +50,17 @@ class PaymentProvider(models.Model):
         res = super()._get_payment_method_information()
         res['blockbee'] = {'mode': 'unique', 'domain': [('type', '=', 'bank')]}
         return res
+
+    def _get_supported_currencies(self):
+        """ Override of `payment` to return the supported currencies. """
+        supported_currencies = super()._get_supported_currencies()
+        if self.code == 'blockbee':
+            supported_currencies = supported_currencies.filtered(
+                lambda c: c.name in const.SUPPORTED_CURRENCIES
+            )
+        return supported_currencies
+
+    # === BLOCKBEE === #
 
     def _blockbee_get_api_url(self):
         """
