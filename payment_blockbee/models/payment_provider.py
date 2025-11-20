@@ -1,5 +1,4 @@
 import logging
-import requests
 
 from requests.models import PreparedRequest
 
@@ -60,17 +59,15 @@ class PaymentProvider(models.Model):
             )
         return supported_currencies
 
-    # === BLOCKBEE === #
-
-    def _blockbee_get_api_url(self):
-        """
-        Return the API URL.
-        """
+    def _build_request_url(self, endpoint, **kwargs):
+        """Build the BlockBee request URL or fall back to the default for other providers."""
         self.ensure_one()
-        return {
-            'host': 'api.blockbee.io',
-            'url': 'https://api.blockbee.io/'
-        }
+        base_url = "https://api.blockbee.io/"
+        # avoid double slashes
+        endpoint = (endpoint or '').lstrip('/')
+        return f"{base_url}{endpoint}"
+
+    # === BLOCKBEE === #
 
     def _blockbee_request(self, redirect_url, notify_url, api_key, value, parameters={}, bb_parameters={}):
         if parameters:
@@ -83,10 +80,11 @@ class PaymentProvider(models.Model):
             'notify_url': notify_url,
             'apikey': api_key,
             'value': value,
+            **parameters,
             **bb_parameters
         }
 
-        _request = self._blockbee_process_request(endpoint='checkout/request', params=params)
+        _request = self._blockbee_process_request(endpoint='checkout/request/', params=params)
         if _request['status'] == 'success':
             return {
                 'success_token': _request['success_token'],
@@ -95,16 +93,14 @@ class PaymentProvider(models.Model):
         return None
 
     def _blockbee_process_request(self, endpoint, params):
-        response = requests.get(
-            url="{base_url}{endpoint}/".format(
-                base_url=self._blockbee_get_api_url()['url'],
-                endpoint=endpoint,
-            ),
+        self.ensure_one()
+        response = self._send_api_request(
+            method='GET',
+            endpoint=endpoint,
             params=params,
-            headers={'Host': self._blockbee_get_api_url()['host']},
+            reference=params.get('order_number', None),
         )
-
-        return response.json()
+        return response
 
     def _blockbee_search_records(self, order_number):
-        return self.env['blockbee.orders'].search([('order_number', 'in', order_number)], limit=1)
+        return self.env['blockbee.orders'].search([('order_number', '=', order_number)], limit=1)
