@@ -6,7 +6,7 @@ Accept cryptocurrency payments in Odoo.
 ### Requirements:
 
 ```
-Odoo = 17
+Odoo = 19
 ```
 
 ### Description
@@ -23,45 +23,54 @@ The BlockBee extension enables your Magento store to get receive payments in cry
 * (ETH) Ethereum
 * (BCH) Bitcoin Cash
 * (LTC) Litecoin
-* (MATIC) Polygon
+* (POL) Polygon
 * (TRX) Tron
 * (BNB) Binance Coin
 * (DOGE) Dogecoin
+* (SOL) Solana
+* (USDT) USDT
+* (USDC) USDC
 
 You can get the full list in our [cryptocurrencies](https://blockbee.io/cryptocurrencies) page.
 
 ### Supported currencies for automatic exchange rates are:
 
-* (USD) United States Dollar
+* (AED) UAE Dirham
+* (AUD) Australian Dollar
+* (BGN) Bulgarian Lev
+* (BRL) Brazilian Real
+* (CAD) Canadian Dollar
+* (CHF) Swiss Franc
+* (CNY) Chinese Yuan
+* (COP) Colombian Peso
+* (CZK) Czech Koruna
+* (DKK) Danish Krone
 * (EUR) Euro
 * (GBP) Great Britain Pound
-* (CAD) Canadian Dollar
-* (JPY) Japanese Yen
-* (AED) UAE Dollar 
-* (MYR) Malaysian Ringgit 
-* (IDR) Indonesian Rupiah
-* (THB) Thai Baht 
-* (CHF) Swiss Franc
-* (COP) Colombian Peso
-* (SGD) Singapore Dollar 
-* (RUB) Russian Ruble
-* (ZAR) South African Rand
-* (TRY) Turkish Lira
-* (LKR) Sri Lankan Rupee
-* (XAF) CFA Franc 
-* (RON) Romanian Leu
-* (BGN) Bulgarian Lev 
-* (HUF) Hungarian Forint 
-* (CZK) Czech Koruna 
-* (PHP) Philippine Peso
-* (PLN) Poland Zloti
-* (UGX) Uganda Shillings
-* (MXN) Mexican Peso
-* (INR) Indian Rupee
 * (HKD) Hong Kong Dollar
-* (CNY) Chinese Yuan
-* (BRL) Brazilian Real
-* (DKK) Danish Krone
+* (HUF) Hungarian Forint
+* (IDR) Indonesian Rupiah
+* (INR) Indian Rupee
+* (JPY) Japanese Yen
+* (LKR) Sri Lankan Rupee
+* (MXN) Mexican Peso
+* (MYR) Malaysian Ringgit
+* (NGN) Nigerian Naira
+* (NOK) Norwegian Krone
+* (PHP) Philippine Peso
+* (PLN) Polish Zloty
+* (RON) Romanian Leu
+* (RUB) Russian Ruble
+* (SEK) Swedish Krona
+* (SGD) Singapore Dollar
+* (THB) Thai Baht
+* (TRY) Turkish Lira
+* (TWD) New Taiwan Dollar
+* (UAH) Ukrainian Hryvnia
+* (UGX) Ugandan Shilling
+* (USD) United States Dollar
+* (VND) Vietnamese Dong
+* (ZAR) South African Rand
 
 If your Odoo's currency is none of the above, BlockBee's Module won't function properly. You may [contact us](https://blockbee.io/contacts/) in order to
 add the FIAT currency you w.
@@ -108,6 +117,11 @@ If there's anything else you need that is not covered on those pages, please get
 The easiest and fastest way is via our live chat on our [website](https://blockbee.io) or via our [contact form](https://blockbee.io/contacts/).
 
 ### Changelog 
+
+#### 1.3.0
+* Support Odoo 19
+* Update the supported FIAT currencies
+* Codebase improvements 
 
 #### 1.2.0
 * Support Odoo 17
