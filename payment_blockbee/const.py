@@ -1,5 +1,3 @@
-
-
 SUPPORTED_CURRENCIES = [
     'AED',
     'AUD',
@@ -93,3 +91,7 @@ SUPPORTED_COUNTRIES = {
     'US',
     'UG',
 }
+
+
+# Authoritative source for BlockBee's current webhook-signing public key.
+WEBHOOK_PUBLIC_KEY_URL = 'https://api.blockbee.io/pubkey/'

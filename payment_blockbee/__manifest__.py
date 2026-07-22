@@ -1,6 +1,6 @@
 {
     'name': 'BlockBee Payment Gateway',
-    'version': '1.3.0',
+    'version': '1.4.0',
     'category': 'Accounting/Payment Providers',
     'sequence': 350,
     'author': 'BlockBee',
@@ -15,8 +15,11 @@
     ],
     'images': [
         'static/description/blockbee_description.jpg',
-        'static/description/blockbee_screenshot.jpg',
+        'static/description/blockbee_screenshot.png',
     ],
+    'external_dependencies': {
+        'python': ['cryptography'],
+    },
     'installable': True,
     'application': True,
     'post_init_hook': 'post_init_hook',

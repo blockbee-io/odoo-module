@@ -92,6 +92,10 @@ For more info on our fees [click here](https://blockbee.io/fees/)
 6. Select **BlockBee Payment Gateway**. You will need an API Key which you might get at [BlockBee Dashboard](https://dash.blockbee.io/).
 7. Finally we advise you to make a test order in order to verify if you set up BlockBee's Module correctly.
 
+Webhook signature verification uses the exact public callback URL. When Odoo
+runs behind a reverse proxy, configure Odoo's proxy mode and public base URL so
+the reconstructed URL remains the same HTTPS URL sent to BlockBee.
+
 ### Frequently Asked Questions
 
 #### Do I need an API key?
@@ -118,6 +122,17 @@ The easiest and fastest way is via our live chat on our [website](https://blockb
 
 ### Changelog 
 
+#### 1.4.0
+* Require signed, transaction-bound BlockBee webhooks with strict payment validation
+* Fetch BlockBee's current webhook public key from the API for every signed webhook
+* Verify the original raw callback URL across direct and reverse-proxy deployments
+* Bind checkouts to their exact Odoo transaction, provider, company, and BlockBee payment ID
+* Serialize checkout creation and callbacks for concurrency-safe idempotency
+* Reuse unpaid checkout links instead of rotating webhook credentials
+* Use Odoo's standard payment, order, accounting, and reconciliation processing
+* Send API keys in headers and redact payment credentials and secrets from logs
+* Disable and unpublish BlockBee and remove checkout secrets during database neutralization
+
 #### 1.3.0
 * Support Odoo 19
 * Update the supported FIAT currencies
@@ -127,4 +142,6 @@ The easiest and fastest way is via our live chat on our [website](https://blockb
 * Support Odoo 17
 
 ### Upgrade Notice
-* No breaking changes.
+* Payment links created before 1.4.0 do not have the new signed-webhook identity
+  fields. Their obsolete authentication rows are removed during the module
+  upgrade, so unpaid links must be regenerated afterward.
