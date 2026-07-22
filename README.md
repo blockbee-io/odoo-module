@@ -15,9 +15,9 @@ Accept payments in Bitcoin, Bitcoin Cash, Litecoin, Ethereum, Doge and Matic dir
 
 #### Allow your customers to pay with cryptocurrency
 
-The BlockBee extension enables your Magento store to get receive payments in cryptocurrency, with a simple setup.
+The BlockBee module enables your Odoo store to receive payments in cryptocurrency, with a simple setup.
 
-#### Accepted cryptocurrencies & tokens include:
+#### Accepted cryptocurrencies and tokens include:
 
 * (BTC) Bitcoin
 * (ETH) Ethereum
@@ -32,39 +32,37 @@ You can get the full list in our [cryptocurrencies](https://blockbee.io/cryptocu
 
 ### Supported currencies for automatic exchange rates are:
 
-* (USD) United States Dollar
-* (EUR) Euro
-* (GBP) Great Britain Pound
-* (CAD) Canadian Dollar
-* (JPY) Japanese Yen
-* (AED) UAE Dollar 
-* (MYR) Malaysian Ringgit 
-* (IDR) Indonesian Rupiah
-* (THB) Thai Baht 
-* (CHF) Swiss Franc
-* (COP) Colombian Peso
-* (SGD) Singapore Dollar 
-* (RUB) Russian Ruble
-* (ZAR) South African Rand
-* (TRY) Turkish Lira
-* (LKR) Sri Lankan Rupee
-* (XAF) CFA Franc 
-* (RON) Romanian Leu
-* (BGN) Bulgarian Lev 
-* (HUF) Hungarian Forint 
-* (CZK) Czech Koruna 
-* (PHP) Philippine Peso
-* (PLN) Poland Zloti
-* (UGX) Uganda Shillings
-* (MXN) Mexican Peso
-* (INR) Indian Rupee
-* (HKD) Hong Kong Dollar
-* (CNY) Chinese Yuan
+* (AED) United Arab Emirates Dirham
+* (AUD) Australian Dollar
+* (BGN) Bulgarian Lev
 * (BRL) Brazilian Real
+* (CAD) Canadian Dollar
+* (CNY) Chinese Yuan
+* (CZK) Czech Koruna
 * (DKK) Danish Krone
+* (EUR) Euro
+* (GBP) British Pound
+* (HKD) Hong Kong Dollar
+* (HUF) Hungarian Forint
+* (IDR) Indonesian Rupiah
+* (INR) Indian Rupee
+* (JPY) Japanese Yen
+* (MXN) Mexican Peso
+* (MYR) Malaysian Ringgit
+* (NGN) Nigerian Naira
+* (NOK) Norwegian Krone
+* (PHP) Philippine Peso
+* (PLN) Polish Zloty
+* (RON) Romanian Leu
+* (RUB) Russian Ruble
+* (SEK) Swedish Krona
+* (SGD) Singapore Dollar
+* (THB) Thai Baht
+* (TRY) Turkish Lira
+* (USD) United States Dollar
+* (ZAR) South African Rand
 
-If your Odoo's currency is none of the above, BlockBee's Module won't function properly. You may [contact us](https://blockbee.io/contacts/) in order to
-add the FIAT currency you w.
+If your Odoo currency is not in this list, the module will not offer BlockBee at checkout. [Contact us](https://blockbee.io/contacts/) to ask for the fiat currency you need.
 
 #### Why choose BlockBee?
 
@@ -96,7 +94,7 @@ This depends on the cryptocurrency you're using. Bitcoin usually takes up to 11 
 #### Is there a minimum for a payment?
 
 Yes, the minimums change according to the chosen cryptocurrency and can be checked [here](https://blockbee.io/fees/).
-If the Magento order total is below the chosen cryptocurrency's minimum, an error is raised to the user.
+If the Odoo order total is below the chosen cryptocurrency's minimum, an error is raised to the user.
 
 #### Where can I find more documentation on your service?
 
@@ -109,8 +107,21 @@ The easiest and fastest way is via our live chat on our [website](https://blockb
 
 ### Changelog 
 
+#### 1.4.0
+* Require signed, transaction-bound BlockBee webhooks with strict payment validation
+* Fetch BlockBee's current webhook public key from the API for every signed webhook
+* Verify the original raw callback URL across direct and reverse-proxy deployments
+* Bind checkouts to their exact Odoo transaction, provider, company, and BlockBee payment ID
+* Serialize checkout creation and callbacks for concurrency-safe idempotency
+* Reuse unpaid checkout links instead of rotating webhook credentials
+* Use Odoo's standard payment, order, accounting, and reconciliation processing
+* Send API keys in headers, add request timeouts, and redact payment credentials and secrets from logs
+* Disable and unpublish BlockBee and remove checkout secrets during database neutralization
+
 #### 1.2.0
 * Support Odoo 17
 
 ### Upgrade Notice
-* No breaking changes.
+* Payment links created before 1.4.0 do not have the new signed-webhook identity
+  fields. Their obsolete authentication rows are removed during the module
+  upgrade, so unpaid links must be regenerated afterward.

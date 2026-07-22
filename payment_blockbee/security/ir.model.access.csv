@@ -1,3 +1,2 @@
-id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
-access_blockbee_orders,access_blockbee_orders,model_blockbee_orders,base.group_user,1,0,0,1
-access_blockbee_orders,access_blockbee_orders,model_blockbee_orders,base.group_system,1,1,1,1
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_blockbee_orders_system,blockbee.orders.system,model_blockbee_orders,base.group_system,1,0,0,0
