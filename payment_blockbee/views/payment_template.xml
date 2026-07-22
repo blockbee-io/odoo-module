@@ -7,10 +7,12 @@
         <field name="inherit_id" ref="payment.payment_provider_form"/>
         <field name="arch" type="xml">
             <group name="provider_credentials" position='inside'>
-                <group attrs="{'invisible': [('code', '!=', 'blockbee')]}">
+                <group name="blockbee_credentials"
+                       attrs="{'invisible': [('code', '!=', 'blockbee')]}">
                     <field name="blockbee_api_key"
                            string="BlockBee API Key"
-                           attrs="{'required': [('code', '=', 'blockbee'), ('state', '!=', 'disabled')]}"/>
+                           attrs="{'required': [('code', '=', 'blockbee'), ('state', '!=', 'disabled')]}"
+                           password="True"/>
                     <a href="https://dash.blockbee.io/"
                        target="_blank"
                        colspan="2">

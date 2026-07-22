@@ -67,3 +67,6 @@ venv
 # Test DB
 
 *.sqlite3
+
+# Internal docs
+docs/*.md

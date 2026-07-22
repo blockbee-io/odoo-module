@@ -15,7 +15,7 @@ Accept payments in Bitcoin, Bitcoin Cash, Litecoin, Ethereum, Doge and Matic dir
 
 #### Allow your customers to pay with cryptocurrency
 
-The BlockBee extension enables your Magento store to get receive payments in cryptocurrency, with a simple setup.
+The BlockBee module enables your Odoo store to receive payments in cryptocurrency, with a simple setup.
 
 #### Accepted cryptocurrencies & tokens include:
 
@@ -37,7 +37,7 @@ You can get the full list in our [cryptocurrencies](https://blockbee.io/cryptocu
 * (GBP) Great Britain Pound
 * (CAD) Canadian Dollar
 * (JPY) Japanese Yen
-* (AED) UAE Dollar 
+* (AED) United Arab Emirates Dirham
 * (MYR) Malaysian Ringgit 
 * (IDR) Indonesian Rupiah
 * (THB) Thai Baht 
@@ -63,8 +63,7 @@ You can get the full list in our [cryptocurrencies](https://blockbee.io/cryptocu
 * (BRL) Brazilian Real
 * (DKK) Danish Krone
 
-If your Odoo's currency is none of the above, BlockBee's Module won't function properly. You may [contact us](https://blockbee.io/contacts/) in order to
-add the FIAT currency you w.
+If your Odoo currency is not in this list, the module will not work correctly. [Contact us](https://blockbee.io/contacts/) to ask for the fiat currency you need.
 
 #### Why choose BlockBee?
 
@@ -96,7 +95,7 @@ This depends on the cryptocurrency you're using. Bitcoin usually takes up to 11 
 #### Is there a minimum for a payment?
 
 Yes, the minimums change according to the chosen cryptocurrency and can be checked [here](https://blockbee.io/fees/).
-If the Magento order total is below the chosen cryptocurrency's minimum, an error is raised to the user.
+If the Odoo order total is below the chosen cryptocurrency's minimum, an error is raised to the user.
 
 #### Where can I find more documentation on your service?
 
@@ -118,5 +117,20 @@ The easiest and fastest way is via our live chat on our [website](https://blockb
 #### 1.1.1
 * Minor bugfixes.
 
+#### 1.4.0
+* Require signed, transaction-bound BlockBee webhooks with strict payment validation
+* Fetch BlockBee's current webhook public key from the API for every signed webhook
+* Verify the original raw callback URL across direct and reverse-proxy deployments
+* Bind checkouts to their exact Odoo transaction, provider, company, and BlockBee payment ID
+* Validate the paid amount, including provider checkout fees, and the currency
+* Serialize checkout creation and callbacks for concurrency-safe idempotency
+* Reuse unpaid checkout links instead of rotating webhook credentials
+* Use Odoo's standard payment, order, accounting, and reconciliation processing
+* Send API keys in headers, add request timeouts, and redact payment credentials and secrets from logs
+* Restrict and mask the API key field
+* Disable and unpublish BlockBee and remove checkout secrets during database neutralization
+
 ### Upgrade Notice
-* No breaking changes.
+* Payment links created before 1.4.0 do not have the new signed-webhook identity
+  fields. Their obsolete authentication rows are removed during the module
+  upgrade, so unpaid links must be regenerated afterward.
